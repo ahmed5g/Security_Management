@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReclamationsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,10 +44,32 @@ class Reclamations
      */
     private $statut;
 
+
+
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\OneToOne(targetEntity=Traitements::class, inversedBy="reclamations", cascade={"persist", "remove"})
      */
     private $traitement;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $clientName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $clientPrenom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $clientEmail;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $clientID;
 
     public function getId(): ?int
     {
@@ -112,15 +136,69 @@ class Reclamations
         return $this;
     }
 
-    public function getTraitement(): ?string
+
+    public function getTraitement(): ?Traitements
     {
         return $this->traitement;
     }
 
-    public function setTraitement(?string $traitement): self
+    public function setTraitement(?Traitements $traitement): self
     {
         $this->traitement = $traitement;
 
         return $this;
     }
+
+    public function getClientName(): ?string
+    {
+        return $this->clientName;
+    }
+
+    public function setClientName(string $clientName): self
+    {
+        $this->clientName = $clientName;
+
+        return $this;
+    }
+
+    public function getClientPrenom(): ?string
+    {
+        return $this->clientPrenom;
+    }
+
+    public function setClientPrenom(string $clientPrenom): self
+    {
+        $this->clientPrenom = $clientPrenom;
+
+        return $this;
+    }
+
+    public function getClientEmail(): ?string
+    {
+        return $this->clientEmail;
+    }
+
+    public function setClientEmail(string $clientEmail): self
+    {
+        $this->clientEmail = $clientEmail;
+
+        return $this;
+    }
+
+    public function getClientID(): ?int
+    {
+        return $this->clientID;
+    }
+
+    public function setClientID(int $clientID): self
+    {
+        $this->clientID = $clientID;
+
+        return $this;
+    }
 }
+
+
+
+
+
